@@ -11,10 +11,11 @@
 typedef enum
 {
     ZWPlayerViewStatusFree = 0,//Free ,default status
-    ZWPlayerViewStatusWaitingToPlayAtSpecifiedRate,//WaitingToPlayAtSpecifiedRate
+    ZWPlayerViewStatusLoading,//WaitingToPlayAtSpecifiedRate
     ZWPlayerViewStatusPrepare,//准备就绪
     ZWPlayerViewStatusPlay,//播放中
     ZWPlayerViewStatusPause,//暂停
+    ZWPlayerViewStatusPauseWaiting,//WaitingToPlayAtSpecifiedRate
     ZWPlayerViewStatusSeeking,//拖拽
     ZWPlayerViewStatusStop,//停止
     ZWPlayerViewStatusError//错误

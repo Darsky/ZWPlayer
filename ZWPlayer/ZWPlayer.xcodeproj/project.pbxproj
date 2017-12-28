@@ -18,6 +18,7 @@
 		DE33A6701FF39A49005E0A56 /* img_videoplayer_pause_big@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE33A66C1FF39A49005E0A56 /* img_videoplayer_pause_big@2x.png */; };
 		DE33A6711FF39A49005E0A56 /* img_videoplayer_pause_big@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE33A66D1FF39A49005E0A56 /* img_videoplayer_pause_big@3x.png */; };
 		DE33A6721FF39A49005E0A56 /* img_videoplayer_play_big@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE33A66E1FF39A49005E0A56 /* img_videoplayer_play_big@2x.png */; };
+		DE7819491FF492F100FC0C8E /* ZWPlayerProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = DE7819481FF492F100FC0C8E /* ZWPlayerProgressView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,8 @@
 		DE33A66C1FF39A49005E0A56 /* img_videoplayer_pause_big@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "img_videoplayer_pause_big@2x.png"; sourceTree = "<group>"; };
 		DE33A66D1FF39A49005E0A56 /* img_videoplayer_pause_big@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "img_videoplayer_pause_big@3x.png"; sourceTree = "<group>"; };
 		DE33A66E1FF39A49005E0A56 /* img_videoplayer_play_big@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "img_videoplayer_play_big@2x.png"; sourceTree = "<group>"; };
+		DE7819471FF492F100FC0C8E /* ZWPlayerProgressView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZWPlayerProgressView.h; sourceTree = "<group>"; };
+		DE7819481FF492F100FC0C8E /* ZWPlayerProgressView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZWPlayerProgressView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +92,8 @@
 				DE33A66A1FF39A49005E0A56 /* Resource */,
 				DE33A6671FF38DEC005E0A56 /* ZWPlayerView.h */,
 				DE33A6681FF38DEC005E0A56 /* ZWPlayerView.m */,
+				DE7819471FF492F100FC0C8E /* ZWPlayerProgressView.h */,
+				DE7819481FF492F100FC0C8E /* ZWPlayerProgressView.m */,
 			);
 			path = ZWPlayer;
 			sourceTree = "<group>";
@@ -96,10 +101,10 @@
 		DE33A66A1FF39A49005E0A56 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				DE33A66E1FF39A49005E0A56 /* img_videoplayer_play_big@2x.png */,
 				DE33A66B1FF39A49005E0A56 /* img_videoplayer_play_big@3x.png */,
 				DE33A66C1FF39A49005E0A56 /* img_videoplayer_pause_big@2x.png */,
 				DE33A66D1FF39A49005E0A56 /* img_videoplayer_pause_big@3x.png */,
-				DE33A66E1FF39A49005E0A56 /* img_videoplayer_play_big@2x.png */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -182,6 +187,7 @@
 				DE33A6551FF38D85005E0A56 /* ViewController.m in Sources */,
 				DE33A6601FF38D85005E0A56 /* main.m in Sources */,
 				DE33A6691FF38DEC005E0A56 /* ZWPlayerView.m in Sources */,
+				DE7819491FF492F100FC0C8E /* ZWPlayerProgressView.m in Sources */,
 				DE33A6521FF38D85005E0A56 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

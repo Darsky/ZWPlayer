@@ -8,6 +8,7 @@
 
 #import "ZWPlayerView.h"
 #import <AVFoundation/AVFoundation.h>
+#import "ZWPlayerProgressView.h"
 
 #define ToolBarHeight 40
 
@@ -26,11 +27,13 @@
     
     UIButton       *_playButton;
     
+    UIView         *_loadingView;
+    
     UILabel        *_cuDurLabel;
     
     UILabel        *_reDurLabel;
     
-    UIProgressView *_progressView;
+    ZWPlayerProgressView *_progressView;
     
     int             _relaxTime;
     
@@ -80,21 +83,18 @@
     if (_playButton == nil)
     {
         _playButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _playButton.frame = CGRectMake(0, 0, 68, 68);
         [_playButton setImage:[UIImage imageNamed:@"img_videoplayer_play_big"]
                      forState:UIControlStateNormal];
         [_playButton setImage:[UIImage imageNamed:@"img_videoplayer_pause_big"]
                      forState:UIControlStateSelected];
-        [_playButton setBackgroundColor:[UIColor colorWithRed:0
-                                                        green:0
-                                                         blue:0
-                                                        alpha:0.5]];
         [_playButton addTarget:self
                         action:@selector(didPlayButtonTouch)
               forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_playButton];
     }
     _playButton.selected = NO;
-    _playButton.frame    = self.bounds;
+    _playButton.center = CGPointMake(self.frame.size.width/2.0, self.frame.size.height/2.0);
     if (_topToolView == nil)
     {
         _topToolView = [[UIView alloc] init];
@@ -127,7 +127,7 @@
         _reDurLabel.text = @"00:00";
         _reDurLabel.textColor = [UIColor whiteColor];
         [_bottomToolView addSubview:_reDurLabel];
-        _progressView = [[UIProgressView alloc] init];
+        _progressView = [[ZWPlayerProgressView alloc] init];
         [_bottomToolView addSubview:_progressView];
     }
     _reDurLabel.frame = CGRectMake(self.frame.size.width - 45 - 13, _reDurLabel.frame.origin.y, _reDurLabel.frame.size.width, _reDurLabel.frame.size.height);
@@ -165,7 +165,7 @@
             __block UILabel        *leftLabel    = _cuDurLabel;
             __block UILabel        *rightLabel   = _reDurLabel;
             __block ZWPlayerView   *playerView   = self;
-            __block UIProgressView *progressView = _progressView;
+            __block ZWPlayerProgressView *progressView = _progressView;
             self.playerTimeObser =  [_player addPeriodicTimeObserverForInterval:CMTimeMake(1, 1)
                                                                           queue:NULL
                                                                      usingBlock:^(CMTime time)
@@ -320,7 +320,6 @@
                     }
                     // 将弧度转换为角度
                     CGFloat degree = rotate/M_PI * 180;
-                    NSLog(@"=====hello  width:%f===height:%f degree %f",videoTrack.naturalSize.width,videoTrack.naturalSize.height,degree);
                     CGFloat duration = playerItem.duration.value / playerItem.duration.timescale; //视频总时间
                     NSLog(@"准备好播放了，总时间：%.2f", duration);//还可以获得播放的进度，这里可以给播放进度条赋值了
                     if (videoTrack.naturalSize.height > videoTrack.naturalSize.width)
@@ -333,7 +332,7 @@
                     }
                     if (self.status == ZWPlayerViewStatusFree)
                     {
-                        self.status = ZWPlayerViewStatusPrepare;
+                        self.status = ZWPlayerViewStatusLoading;
                         if (self.statusBlock != nil)
                         {
                             CMTime ctime = self.player.currentItem.currentTime;
@@ -341,7 +340,7 @@
                             NSInteger duration = self.player.currentItem.duration.value/self.player.currentItem.duration.timescale;
                             self.statusBlock(1, self.status,currentSecond,duration);
                         }
-                        [self playerStartPlay];
+                        [self showOrHidePlayerLoadingAnimation:YES];
                     }
                 }
             }
@@ -362,41 +361,37 @@
             float startSeconds = CMTimeGetSeconds(timeRange.start);
             float durationSeconds = CMTimeGetSeconds(timeRange.duration);
             NSTimeInterval timeInterval = startSeconds + durationSeconds;// 计算缓冲总进度
-            CMTime duration = playerItem.duration;
-            CGFloat totalDuration = CMTimeGetSeconds(duration);
-            int    progress = (int)(timeInterval / totalDuration*100);
-            
-            CMTime ctime = _player.currentTime;
-            //            NSInteger playedSecond = ctime.value/ctime.timescale;
-            if (self.status == ZWPlayerViewStatusWaitingToPlayAtSpecifiedRate)
-            {
-                if (_player.currentItem.status == AVPlayerItemStatusReadyToPlay)
-                {
-                    self.status =  ZWPlayerViewStatusPrepare;
-                }
-                else
-                {
-
-                }
-                //由于 AVPlayer 缓存不足就会自动暂停，所以缓存充足了需要手动播放，才能继续播放
-            }
+             CGFloat duration = playerItem.duration.value / playerItem.duration.timescale;
+            [_progressView setBuffer:timeInterval/duration];
         }
         else if ([keyPath isEqualToString:@"playbackBufferEmpty"])
         {
             //监听播放器在缓冲数据的状态
-            NSLog(@"进入缓冲");
-            if (self.status == ZWPlayerViewStatusPlay)
+            NSLog(@"playbackBufferEmpty");
+            if (self.status == ZWPlayerViewStatusFree)
             {
+                self.status = ZWPlayerViewStatusLoading;
+                [self showOrHidePlayerLoadingAnimation:YES];
+            }
+            else if (self.status == ZWPlayerViewStatusPlay)
+            {
+                NSLog(@"暂停播放，进入缓冲");
                 [self playerWaitingToPlayAtSpecifiedRate];
             }
         }
         else if ([keyPath isEqualToString:@"playbackLikelyToKeepUp"])
         {
-            NSLog(@"缓冲可以了");
-            if (self.status == ZWPlayerViewStatusWaitingToPlayAtSpecifiedRate)
+            NSLog(@"playbackLikelyToKeepUp");
+            if (self.status == ZWPlayerViewStatusPauseWaiting)
             {
                 NSLog(@"恢复因为缓冲导致的暂停状态");
-                self.status =  ZWPlayerViewStatusPrepare;
+                [self showOrHidePlayerLoadingAnimation:NO];
+                [self playerStartPlay];
+            }
+            else if (self.status == ZWPlayerViewStatusLoading)
+            {
+                self.status = ZWPlayerViewStatusPrepare;
+                [self showOrHidePlayerLoadingAnimation:NO];
             }
         }
     }
@@ -438,7 +433,7 @@
 
 - (void)playerStartPlay
 {
-    if (self.player.status != AVPlayerStatusFailed && self.status != ZWPlayerViewStatusWaitingToPlayAtSpecifiedRate&& self.status != ZWPlayerViewStatusFree)
+    if (self.player.status != AVPlayerStatusFailed && self.status != ZWPlayerViewStatusLoading&& self.status != ZWPlayerViewStatusFree)
     {
         if (self.status == ZWPlayerViewStatusStop)
         {
@@ -475,10 +470,53 @@
 - (void)playerWaitingToPlayAtSpecifiedRate
 {
     [_player pause];
-    self.status = ZWPlayerViewStatusWaitingToPlayAtSpecifiedRate;
-    _playButton.selected = NO;
+    self.status = ZWPlayerViewStatusPauseWaiting;
+    [self showOrHidePlayerLoadingAnimation:YES];
 }
 
+- (void)showOrHidePlayerLoadingAnimation:(BOOL)shouldShow
+{
+    if (shouldShow && _loadingView == nil)
+    {
+        _playButton.hidden = YES;
+        _loadingView = [[UIView alloc] initWithFrame:_playButton.frame];
+        _loadingView.layer.masksToBounds = YES;
+        _loadingView.layer.cornerRadius  = _playButton.frame.size.width/2.0;
+        [_loadingView setBackgroundColor:[UIColor clearColor]];
+        [self addSubview:_loadingView];
+        CGFloat radius = _playButton.frame.size.width;
+        UIBezierPath* path = [[UIBezierPath alloc] init];
+        [path addArcWithCenter:CGPointMake(radius/2, radius/2)
+                        radius:(radius/2 - 5)
+                    startAngle:0
+                      endAngle:M_PI_2 * 2
+                     clockwise:YES];
+        CAShapeLayer *shapeLayer = [[CAShapeLayer alloc] init];
+        shapeLayer.lineWidth = 1.5;
+        shapeLayer.strokeColor = [UIColor whiteColor].CGColor;
+        shapeLayer.fillColor = _loadingView.backgroundColor.CGColor;
+        shapeLayer.frame = CGRectMake(0, 0, radius, radius);
+        shapeLayer.path = path.CGPath;
+        [_loadingView.layer addSublayer:shapeLayer];
+        
+        //让圆转圈，实现"加载中"的效果
+        CABasicAnimation* baseAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
+        baseAnimation.duration = 1;
+        baseAnimation.fromValue = @(0);
+        baseAnimation.toValue = @(2 * M_PI);
+        baseAnimation.repeatCount = MAXFLOAT;
+        [_loadingView.layer addAnimation:baseAnimation
+                                  forKey:nil];
+    }
+    else if (!shouldShow && _loadingView != nil)
+    {
+        _playButton.hidden = NO;
+        [_loadingView.layer removeAllAnimations];
+        [_loadingView removeFromSuperview];
+        _loadingView = nil;
+    }
+    
+}
 
 
 /*
