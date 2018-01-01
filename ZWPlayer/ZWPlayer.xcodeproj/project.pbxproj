@@ -18,6 +18,8 @@
 		DE33A6701FF39A49005E0A56 /* img_videoplayer_pause_big@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE33A66C1FF39A49005E0A56 /* img_videoplayer_pause_big@2x.png */; };
 		DE33A6711FF39A49005E0A56 /* img_videoplayer_pause_big@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE33A66D1FF39A49005E0A56 /* img_videoplayer_pause_big@3x.png */; };
 		DE33A6721FF39A49005E0A56 /* img_videoplayer_play_big@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE33A66E1FF39A49005E0A56 /* img_videoplayer_play_big@2x.png */; };
+		DE3D289C1FFA567500DFDF80 /* ZWPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DE3D289A1FFA567500DFDF80 /* ZWPlayerViewController.m */; };
+		DE3D289D1FFA567500DFDF80 /* ZWPlayerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DE3D289B1FFA567500DFDF80 /* ZWPlayerViewController.xib */; };
 		DE7819491FF492F100FC0C8E /* ZWPlayerProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = DE7819481FF492F100FC0C8E /* ZWPlayerProgressView.m */; };
 /* End PBXBuildFile section */
 
@@ -38,6 +40,9 @@
 		DE33A66C1FF39A49005E0A56 /* img_videoplayer_pause_big@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "img_videoplayer_pause_big@2x.png"; sourceTree = "<group>"; };
 		DE33A66D1FF39A49005E0A56 /* img_videoplayer_pause_big@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "img_videoplayer_pause_big@3x.png"; sourceTree = "<group>"; };
 		DE33A66E1FF39A49005E0A56 /* img_videoplayer_play_big@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "img_videoplayer_play_big@2x.png"; sourceTree = "<group>"; };
+		DE3D28991FFA567500DFDF80 /* ZWPlayerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZWPlayerViewController.h; sourceTree = "<group>"; };
+		DE3D289A1FFA567500DFDF80 /* ZWPlayerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZWPlayerViewController.m; sourceTree = "<group>"; };
+		DE3D289B1FFA567500DFDF80 /* ZWPlayerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZWPlayerViewController.xib; sourceTree = "<group>"; };
 		DE7819471FF492F100FC0C8E /* ZWPlayerProgressView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZWPlayerProgressView.h; sourceTree = "<group>"; };
 		DE7819481FF492F100FC0C8E /* ZWPlayerProgressView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZWPlayerProgressView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -82,6 +87,9 @@
 				DE33A65B1FF38D85005E0A56 /* LaunchScreen.storyboard */,
 				DE33A65E1FF38D85005E0A56 /* Info.plist */,
 				DE33A65F1FF38D85005E0A56 /* main.m */,
+				DE3D28991FFA567500DFDF80 /* ZWPlayerViewController.h */,
+				DE3D289A1FFA567500DFDF80 /* ZWPlayerViewController.m */,
+				DE3D289B1FFA567500DFDF80 /* ZWPlayerViewController.xib */,
 			);
 			path = ZWPlayer;
 			sourceTree = "<group>";
@@ -167,6 +175,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE3D289D1FFA567500DFDF80 /* ZWPlayerViewController.xib in Resources */,
 				DE33A6701FF39A49005E0A56 /* img_videoplayer_pause_big@2x.png in Resources */,
 				DE33A65D1FF38D85005E0A56 /* LaunchScreen.storyboard in Resources */,
 				DE33A6711FF39A49005E0A56 /* img_videoplayer_pause_big@3x.png in Resources */,
@@ -186,6 +195,7 @@
 			files = (
 				DE33A6551FF38D85005E0A56 /* ViewController.m in Sources */,
 				DE33A6601FF38D85005E0A56 /* main.m in Sources */,
+				DE3D289C1FFA567500DFDF80 /* ZWPlayerViewController.m in Sources */,
 				DE33A6691FF38DEC005E0A56 /* ZWPlayerView.m in Sources */,
 				DE7819491FF492F100FC0C8E /* ZWPlayerProgressView.m in Sources */,
 				DE33A6521FF38D85005E0A56 /* AppDelegate.m in Sources */,
