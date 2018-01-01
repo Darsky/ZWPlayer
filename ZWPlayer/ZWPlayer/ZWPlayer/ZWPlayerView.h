@@ -35,4 +35,6 @@ typedef void (^ZWPlayerStatusBlock)(float progress, ZWPlayerViewStatus status,NS
 - (void)resetAVPlayerWithUrl:(NSString*)url
            withProgressBlock:(ZWPlayerStatusBlock)statusBlock;
 
+- (void)dismiss;
+
 @end

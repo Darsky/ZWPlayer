@@ -519,6 +519,48 @@
 }
 
 
+- (void)dismiss
+{
+    [_player pause];
+    [_player.currentItem removeObserver:self
+                             forKeyPath:@"status"];
+    @try
+    {
+        [_player.currentItem removeObserver:self
+                                 forKeyPath:@"loadedTimeRanges"];
+        [_player.currentItem removeObserver:self
+                                 forKeyPath:@"playbackBufferEmpty"];
+    }
+    @catch (NSException *exception)
+    {
+        
+    }
+    @finally
+    {
+        
+    }
+    
+    [_player.currentItem removeObserver:self
+                             forKeyPath:@"playbackLikelyToKeepUp"];
+    
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:AVPlayerItemDidPlayToEndTimeNotification
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:AVAudioSessionRouteChangeNotification
+                                                  object:nil];
+    [self.player removeTimeObserver:self.playerTimeObser];
+    _player = nil;
+    [_playerLayer removeFromSuperlayer];
+    _playerLayer = nil;
+    
+    
+    _cuDurLabel.text  = @"00:00";
+    _reDurLabel.text = @"00:00";
+    [_progressView setProgress:0];
+}
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
