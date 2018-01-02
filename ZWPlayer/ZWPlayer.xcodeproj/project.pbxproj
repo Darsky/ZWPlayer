@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DE1078B51FFB1FED00A986BE /* ZWPlayerRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = DE1078B41FFB1FED00A986BE /* ZWPlayerRequest.m */; };
 		DE33A6521FF38D85005E0A56 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DE33A6511FF38D85005E0A56 /* AppDelegate.m */; };
 		DE33A6551FF38D85005E0A56 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DE33A6541FF38D85005E0A56 /* ViewController.m */; };
 		DE33A6581FF38D85005E0A56 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE33A6561FF38D85005E0A56 /* Main.storyboard */; };
@@ -24,6 +25,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DE1078B31FFB1FED00A986BE /* ZWPlayerRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZWPlayerRequest.h; sourceTree = "<group>"; };
+		DE1078B41FFB1FED00A986BE /* ZWPlayerRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZWPlayerRequest.m; sourceTree = "<group>"; };
 		DE33A64D1FF38D85005E0A56 /* ZWPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZWPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE33A6501FF38D85005E0A56 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		DE33A6511FF38D85005E0A56 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -102,6 +105,8 @@
 				DE33A6681FF38DEC005E0A56 /* ZWPlayerView.m */,
 				DE7819471FF492F100FC0C8E /* ZWPlayerProgressView.h */,
 				DE7819481FF492F100FC0C8E /* ZWPlayerProgressView.m */,
+				DE1078B31FFB1FED00A986BE /* ZWPlayerRequest.h */,
+				DE1078B41FFB1FED00A986BE /* ZWPlayerRequest.m */,
 			);
 			path = ZWPlayer;
 			sourceTree = "<group>";
@@ -193,6 +198,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE1078B51FFB1FED00A986BE /* ZWPlayerRequest.m in Sources */,
 				DE33A6551FF38D85005E0A56 /* ViewController.m in Sources */,
 				DE33A6601FF38D85005E0A56 /* main.m in Sources */,
 				DE3D289C1FFA567500DFDF80 /* ZWPlayerViewController.m in Sources */,
